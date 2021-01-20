@@ -17,24 +17,29 @@ public class ProductController {
     private ProductDAO productDAO;
 
     @GetMapping("/")
+    // Enable CORS on port 3000
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<Product>> showAll() {
         return new ResponseEntity<>(productDAO.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{name}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<Product>> showByName(@PathVariable String name) {
         return new ResponseEntity<>(productDAO.findByName(name), HttpStatus.OK);
     }
 
     @PostMapping("/add")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> add(String name, String title,
                                       String description, int price) {
         productDAO.add(new Product(name, title, description, price));
         return new ResponseEntity<>("Successfully added " + name, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(String name) {
+    @DeleteMapping("/delete/{name}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<String> delete(@PathVariable String name) {
         List<Product> products = productDAO.findByName(name);
         if (products.isEmpty()) return new ResponseEntity<>("No user found to delete",
                 HttpStatus.NOT_FOUND);
