@@ -1,39 +1,44 @@
 import React from "react";
 import axios from "axios";
-import {Link} from "react-router-dom";
-const ProductProp = props => (
-    <tr>
-      <td>{props.product.name}</td>
-      <td>{props.product.title}</td>
-      <td>{props.product.description}</td>
-      <td>{props.product.price}</td>
-      <td>
-      <a href="#" onClick={() => {props.editProduct(props.product)}}>edit</a> | <a href="#" onClick={() => {props.deleteProduct(props.product)}}>delete</a>
-    </td>
-    </tr>
-  )
+import smartphoneImg from "../samsung.jpg";
+import {Card, Button} from "react-bootstrap";
+import {GridList, GridListTile} from "@material-ui/core";
+let styles = {
+    marginRight: '20px',
+    width: '25rem',
+    height:'35rem',
+    marginBottom:'5rem',
+    border:"0"
+};
+const ProductProp = props => {
+    if (props.product.name.startsWith("samsung")) {
 
-class Product {
-    constructor(id, name, title, description, price) {
-        this.id = id;
-        this.name = name;
-        this.title = title;
-        this.description = description;
-        this.price = price;
     }
-    id;
-    name;
-    title;
-    description;
-    price;
+    return (
+    <Card style={styles}>
+        <Card.Img variant="top" src={smartphoneImg} />
+        <Card.Body>
+            <Card.Title>{props.product.title} ({props.product.price}$)</Card.Title>
+            <Card.Text>{props.product.description}</Card.Text>
+            <Button  variant="primary" onClick={() => {}}> Purchase </Button>
+            <Button className="float-right" variant="danger" onClick={() => {props.deleteProduct(props.product)}}>Delete</Button>
+            
+        </Card.Body>
+        <hr></hr>
+    </Card>
+    );
 }
+
+
 export default class ProductPage extends React.Component {
     constructor(props) {
         super(props);
         this.editProduct = this.editProduct.bind(this);
         this.deleteProduct = this.deleteProduct.bind(this);
+        this.setSort = this.setSort.bind(this);
         this.state = {
-            products : {}
+            products : {},
+            sort: 0
         }
     }
 
@@ -54,7 +59,8 @@ export default class ProductPage extends React.Component {
     deleteProduct(product) {
         axios.delete("http://localhost:8080/product/delete/" + product.name)
           .then(res => {
-              alert(res.data);
+              // Refresh page
+              window.location.reload();
           }).catch(err => {
               alert (err);
           })
@@ -72,27 +78,39 @@ export default class ProductPage extends React.Component {
     }
 
     productList() {
-        return Array.from(this.state.products).map(currentProduct => {
-            return <ProductProp product={currentProduct} editProduct={this.editProduct} deleteProduct={this.deleteProduct}/>;
-        })
+        return Array.from(this.state.products);
     }
+
+    setSort(sortOrder) {
+        this.setState({
+            sort: sortOrder
+        })
+        let array = Array.from(this.state.products);
+        if (!this.setState) array.sort((a, b) => (a.price > b.price) ? 1 : -1);
+        else array.sort((a, b) => (a.price > b.price) ? -1 : 1);  
+        this.setState({
+            products: array
+        })
+       // window.location.reload();
+    } 
     render() {
+        let productArray = this.productList();
         return (
           <div>
             <h3>Products</h3>
-            <table className="table">
-              <thead className="thead-light">
-                <tr>
-                  <th>Name</th>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                { this.productList() }
-              </tbody>
-            </table>
+            <h3>Sort by price : <a href="" onClick={() => {this.setSort(0)}}>asc</a> | <a href="" onClick={() => {this.setSort(1)}}>desc</a></h3>
+            <GridList cols={3}>
+        {
+            productArray.map(currentProduct => {
+                return (
+                <GridListTile style={styles}>
+                    <ProductProp product={currentProduct} editProduct={this.editProduct} deleteProduct={this.deleteProduct}/>
+                </GridListTile>
+                )
+            })
+        }
+        </GridList>
+   
           </div>
         )
       }

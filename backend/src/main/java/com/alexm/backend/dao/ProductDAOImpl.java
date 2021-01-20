@@ -19,7 +19,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Transactional
     public List<Product> findAll() {
         Session currSession = entityManager.unwrap(Session.class);
-        return currSession.createQuery("from Product").getResultList();
+        return currSession.createQuery("from Product p order by p.price desc").getResultList();
     }
 
     @Override
