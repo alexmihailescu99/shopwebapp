@@ -1,6 +1,7 @@
 package com.alexm.backend.dao;
 
 import com.alexm.backend.entity.Product;
+import com.alexm.backend.entity.User;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,11 +25,12 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     @Transactional
-    public List<Product> findByName(String name) {
+    public Product findByName(String name) {
         Session currSession = entityManager.unwrap(Session.class);
         Query query = currSession.createQuery("from Product p where p.name=:name");
         query.setParameter("name", name);
-        return query.getResultList();
+        List<Product> list = query.getResultList();
+        return (!list.isEmpty()) ? list.get(0) : null;
     }
 
     @Override

@@ -25,8 +25,10 @@ public class ProductController {
 
     @GetMapping("/{name}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<List<Product>> showByName(@PathVariable String name) {
-        return new ResponseEntity<>(productDAO.findByName(name), HttpStatus.OK);
+    public ResponseEntity<Product> showByName(@PathVariable String name) {
+        Product product = productDAO.findByName(name);
+        if (product == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -40,10 +42,10 @@ public class ProductController {
     @DeleteMapping("/delete/{name}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> delete(@PathVariable String name) {
-        List<Product> products = productDAO.findByName(name);
-        if (products.isEmpty()) return new ResponseEntity<>("No user found to delete",
+        Product product = productDAO.findByName(name);
+        if (product == null) return new ResponseEntity<>("No user found to delete",
                 HttpStatus.NOT_FOUND);
-        productDAO.delete(products.get(0));
+        productDAO.delete(product);
         return new ResponseEntity<>("Sucessfully deleted " + name, HttpStatus.OK);
     }
 }

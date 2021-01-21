@@ -1,6 +1,9 @@
 import React from "react";
 import axios from "axios";
-import smartphoneImg from "../samsung.jpg";
+import samsungImg from "../samsung.jpg";
+import appleImg from "../apple.jpg";
+import huaweiImg from "../huawei.jpg";
+import onePlusImg from "../oneplus.jpg";
 import {Card, Button} from "react-bootstrap";
 import {GridList, GridListTile} from "@material-ui/core";
 let styles = {
@@ -11,18 +14,25 @@ let styles = {
     border:"0"
 };
 const ProductProp = props => {
-    if (props.product.name.startsWith("samsung")) {
-
+    let productName = props.product.name;
+    let x;
+    if (productName.startsWith("samsung")) {
+        x = samsungImg;
+    } else if (productName.startsWith("apple")) {
+        x = appleImg;
+    } else if (productName.startsWith("huawei")) {
+        x = huaweiImg;
+    } else if (productName.startsWith("oneplus")) {
+        x = onePlusImg;
     }
     return (
     <Card style={styles}>
-        <Card.Img variant="top" src={smartphoneImg} />
+        <Card.Img variant="top" src={x} />
         <Card.Body>
-            <Card.Title>{props.product.title} ({props.product.price}$)</Card.Title>
+            <Card.Title>{props.product.title} (${props.product.price})</Card.Title>
             <Card.Text>{props.product.description}</Card.Text>
             <Button  variant="primary" onClick={() => {}}> Purchase </Button>
             <Button className="float-right" variant="danger" onClick={() => {props.deleteProduct(props.product)}}>Delete</Button>
-            
         </Card.Body>
         <hr></hr>
     </Card>
@@ -44,7 +54,7 @@ export default class ProductPage extends React.Component {
 
     editProduct(product) {
         axios.post("http://localhost:8080/product/add", {
-            name: product.name + " ma ta",
+            name: product.name,
             title: product.title,
             description: product.description,
             price: product.price
