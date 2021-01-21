@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../logo.jpg";
+import logo from "../static/img/logo.jpg";
 export default class NavbarComponent extends React.Component {
     render(){
         return(

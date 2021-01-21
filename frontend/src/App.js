@@ -10,13 +10,6 @@ import EditProductPage from "./components/EditProductPage";
 import AddProductPage from "./components/AddProductPage";
 import "react-bootstrap";
 import 'semantic-ui-css/semantic.min.css'
-import background from "./background.jpg";
-let styles={
-  backgroundImage: {background},
-  backgroundPosition: 'center',
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat'
-}
 function App() {
   return (
     <Router>

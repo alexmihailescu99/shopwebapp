@@ -1,16 +1,16 @@
 import React from "react";
 import axios from "axios";
-import samsungImg from "../samsung.jpg";
-import appleImg from "../apple.jpg";
-import huaweiImg from "../huawei.jpg";
-import onePlusImg from "../oneplus.jpg";
-import sonyImg from "../sony.jpg";
-import lgImg from "../lg.jpg";
-import asusImg from "../asus.jpg";
-import macbookImg from "../macbook.jpg";
-import razerImg from "../razer.jpg";
-import ps5Img from "../ps5.jpg"
-import xsxImg from "../xsx.jpg"
+import samsungImg from "../static/img/samsung.jpg";
+import appleImg from "../static/img/apple.jpg";
+import huaweiImg from "../static/img/huawei.jpg";
+import onePlusImg from "../static/img/oneplus.jpg";
+import sonyImg from "../static/img/sony.jpg";
+import lgImg from "../static/img/lg.jpg";
+import asusImg from "../static/img/asus.jpg";
+import macbookImg from "../static/img/macbook.jpg";
+import razerImg from "../static/img/razer.jpg";
+import ps5Img from "../static/img/ps5.jpg"
+import xsxImg from "../static/img/xsx.jpg"
 import {Card, Button} from "react-bootstrap";
 import {GridList, GridListTile} from "@material-ui/core";
 
