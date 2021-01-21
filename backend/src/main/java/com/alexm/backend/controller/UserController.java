@@ -31,13 +31,14 @@ public class UserController {
 
     @PostMapping("/register")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<String> signUp(String username, String password, String email) {
+    public ResponseEntity<String> signUp(@RequestBody User user) {
         // Encrypt the password
-        User checkIfExists = userDAO.findByName(username);
+        User checkIfExists = userDAO.findByName(user.getUsername());
+        System.out.println(user);
         if (checkIfExists != null) {
             return new ResponseEntity<>("User already exists", HttpStatus.BAD_REQUEST);
         }
-        userDAO.add(new User(username, bCryptPasswordEncoder.encode(password), email));
+        userDAO.add(new User(user.getUsername(), bCryptPasswordEncoder.encode(user.getPassword()), user.getEmail()));
         return new ResponseEntity<>("User added", HttpStatus.OK);
     }
 

@@ -1,15 +1,17 @@
 import React from "react";
 import axios from "axios";
 
-export default class LoginPage extends React.Component {
+export default class RegisterPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
           username: "",
-          password: ""
+          password: "",
+          email: ""
         };
         this.onChangeUserName = this.onChangeUserName.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -24,20 +26,24 @@ export default class LoginPage extends React.Component {
             password: e.target.value
           });
     }
+
+    onChangeEmail(e) {
+        this.setState({
+            email: e.target.value
+          });
+    }
     
     onSubmit(e) {
         alert(this.state.username + " " + this.state.password);
-        axios.post("http://localhost:8080/user/login", {
+        axios.post("http://localhost:8080/user/register", {
             username: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            email: this.state.email
         })
         .then((res) => {
-            alert("hi");
-            alert(res.headers.get("set-cookie"));
             alert(res.status);
         })
         .catch((err) => {
-            alert("error");
             alert(err);
         })
     }
@@ -46,7 +52,7 @@ export default class LoginPage extends React.Component {
         return (
             <form onSubmit={this.onSubmit}>
 
-                <h3>Log in</h3>
+                <h3>Register</h3>
 
                 <div className="form-group">
                     <label>User</label>
@@ -59,15 +65,13 @@ export default class LoginPage extends React.Component {
                 </div>
 
                 <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                    </div>
+                    <label>Email address</label>
+                    <input value={this.state.email} onChange={this.onChangeEmail} id="email" type="text" className="form-control" placeholder="Enter email" />
                 </div>
 
-                <button type="submit" className="btn btn-dark btn-lg btn-block">Sign in</button>
+                <button type="submit" className="btn btn-dark btn-lg btn-block">Create account</button>
                 <p className="forgot-password text-right">
-                    Forgot <a href="#">password?</a>
+                    Already have an <a href="/login">account</a>?
                 </p>
             </form>
         );

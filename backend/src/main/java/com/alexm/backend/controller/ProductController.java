@@ -2,6 +2,7 @@ package com.alexm.backend.controller;
 
 import com.alexm.backend.dao.ProductDAO;
 import com.alexm.backend.entity.Product;
+import com.alexm.backend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +34,17 @@ public class ProductController {
 
     @PostMapping("/add")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<String> add(String name, String title,
-                                      String description, int price) {
-        productDAO.add(new Product(name, title, description, price));
-        return new ResponseEntity<>("Successfully added " + name, HttpStatus.OK);
+    public ResponseEntity<String> add(@RequestBody Product product) {
+        System.out.println("Controller " + product);
+        productDAO.add(new Product(product.getName(), product.getTitle(), product.getDescription(), product.getPrice(), product.getType()));
+        return new ResponseEntity<>("Successfully added " + product.getName(), HttpStatus.OK);
+    }
+
+    @PostMapping("/update")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<String> update(@RequestBody Product product) {
+        productDAO.update(new Product(product.getName(), product.getTitle(), product.getDescription(), product.getPrice(), product.getType()));
+        return new ResponseEntity<>("Successfully added " + product.getName(), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{name}")

@@ -4,10 +4,20 @@ import samsungImg from "../samsung.jpg";
 import appleImg from "../apple.jpg";
 import huaweiImg from "../huawei.jpg";
 import onePlusImg from "../oneplus.jpg";
+import sonyImg from "../sony.jpg";
+import lgImg from "../lg.jpg";
+import asusImg from "../asus.jpg";
+import macbookImg from "../macbook.jpg";
+import razerImg from "../razer.jpg";
+import ps5Img from "../ps5.jpg"
+import xsxImg from "../xsx.jpg"
 import {Card, Button} from "react-bootstrap";
 import {GridList, GridListTile} from "@material-ui/core";
+
+const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
+
 let styles = {
-    marginRight: '20px',
+    marginRight: '21px',
     width: '25rem',
     height:'35rem',
     marginBottom:'5rem',
@@ -25,14 +35,36 @@ const ProductProp = props => {
     } else if (productName.startsWith("oneplus")) {
         x = onePlusImg;
     }
+    else if (productName.startsWith("lg")) {
+        x = lgImg;
+    }
+    else if (productName.startsWith("sony")) {
+        x = sonyImg;
+    }
+    else if (productName.startsWith("asus")) {
+        x = asusImg;
+    }
+    else if (productName.startsWith("mac")) {
+        x = macbookImg;
+    }
+    else if (productName.startsWith("razer")) {
+        x = razerImg;
+    }
+    else if (productName.startsWith("ps5")) {
+        x = ps5Img;
+    }
+    else if (productName.startsWith("xsx")) {
+        x = xsxImg;
+    }
     return (
     <Card style={styles}>
         <Card.Img variant="top" src={x} />
         <Card.Body>
             <Card.Title>{props.product.title} (${props.product.price})</Card.Title>
             <Card.Text>{props.product.description}</Card.Text>
-            <Button  variant="primary" onClick={() => {}}> Purchase </Button>
+            <Button variant="primary" onClick={() => {}}> Purchase </Button>
             <Button className="float-right" variant="danger" onClick={() => {props.deleteProduct(props.product)}}>Delete</Button>
+            <Button className="float-right" variant="warning" onClick={() => {props.editProduct(props.product.name)}}> Edit </Button>
         </Card.Body>
         <hr></hr>
     </Card>
@@ -52,18 +84,8 @@ export default class ProductPage extends React.Component {
         }
     }
 
-    editProduct(product) {
-        axios.post("http://localhost:8080/product/add", {
-            name: product.name,
-            title: product.title,
-            description: product.description,
-            price: product.price
-          })
-          .then(res => {
-              alert(res.data);
-          }).catch(err => {
-              alert (err);
-          })
+    editProduct(productName) {
+        this.props.history.push('/' + this.props.type + "s/edit/" + productName);
     }
 
     deleteProduct(product) {
@@ -78,8 +100,12 @@ export default class ProductPage extends React.Component {
     componentDidMount() {
         axios.get("http://localhost:8080/product/")
             .then(res => {
+                // Filter the array by type(smartphone, laptop etc)
+                // Would've probably been better to do this on the backend via custom queries
+                // But this works too and I'm too lazy atm
+                let array = (this.props.type === "electronic") ? Array.from(res.data) : Array.from(res.data).filter(element => element.type === this.props.type);
                 this.setState({
-                    products : res.data
+                    products : array
                 })
             })
             .catch(err => {
@@ -107,8 +133,8 @@ export default class ProductPage extends React.Component {
         let productArray = this.productList();
         return (
           <div>
-            <h3>Products</h3>
-            <h3>Sort by price : <a href="" onClick={() => {this.setSort(0)}}>asc</a> | <a href="" onClick={() => {this.setSort(1)}}>desc</a></h3>
+            <h3>{capitalizeFirstLetter(this.props.type) + "s"}</h3>
+            <h3>Sort by price : <a href="" onClick={() => {this.setSort(0)}}>ascending</a> | <a href="" onClick={() => {this.setSort(1)}}>descending</a></h3>
             <GridList cols={3}>
         {
             productArray.map(currentProduct => {

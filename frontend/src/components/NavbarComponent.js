@@ -14,18 +14,21 @@ export default class NavbarComponent extends React.Component {
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="#link">Account</Nav.Link>
+                        <Nav.Link href="/add">Add Product</Nav.Link>
                         <NavDropdown title="Categories" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Smartphones</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Laptops</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Gaming Consoles</NavDropdown.Item>
+                            <NavDropdown.Item href="/smartphones" >Smartphones</NavDropdown.Item>
+                            <NavDropdown.Item href="/laptops" >Laptops</NavDropdown.Item>
+                            <NavDropdown.Item href="/gaming">Gaming Consoles</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">PC Parts</NavDropdown.Item>
+                            <NavDropdown.Item href="/pcparts">PC Parts</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                         <Button variant="outline-success">Search</Button>
                     </Form>
+                    <Nav.Link href="/login">Log in</Nav.Link>
+                    <Nav.Link href="/register">Register</Nav.Link>
                 </Navbar.Collapse>
             </Navbar>
         );

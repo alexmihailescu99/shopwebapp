@@ -4,6 +4,8 @@ import com.alexm.backend.entity.Product;
 import com.alexm.backend.entity.User;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -37,9 +39,18 @@ public class ProductDAOImpl implements ProductDAO {
     @Transactional
     public void add(Product product) {
         Session currSession = entityManager.unwrap(Session.class);
-        currSession.saveOrUpdate(product);
+        currSession.save(product);
     }
 
+    @Override
+    @Transactional
+    public void update(Product product) {
+        Session currSession = entityManager.unwrap(Session.class);
+        Product checkIfExists = this.findByName(product.getName());
+        product.setId(checkIfExists.getId());
+        currSession.clear();
+        currSession.update(product);
+    }
     @Override
     @Transactional
     public void delete(Product product) {

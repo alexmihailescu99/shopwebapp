@@ -22,15 +22,19 @@ public class Product {
     @Column(name="price")
     private Integer price;
 
+    @Column(name="type")
+    private String type;
+
     public Product() {
 
     }
 
-    public Product(String name, String title, String description, Integer price) {
+    public Product(String name, String title, String description, Integer price, String type) {
         this.name = name;
         this.title = title;
         this.description = description;
         this.price = price;
+        this.type = type;
     }
 
     public Long getId() {
@@ -73,6 +77,14 @@ public class Product {
         this.price = price;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -81,6 +93,7 @@ public class Product {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
