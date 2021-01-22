@@ -26,12 +26,13 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @ComponentScan
+@CrossOrigin(origins = "http://localhost:3000")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Bean
-//    CorsFilter corsFilter() {
-//        CorsFilter filter = new CorsFilter();
-//        return filter;
-//    }
+    @Bean
+    CorsFilter corsFilter() {
+        CorsFilter filter = new CorsFilter();
+        return filter;
+    }
 
 //    @Bean
 //    CorsConfigurationSource corsConfigurationSource() {
@@ -42,23 +43,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        source.registerCorsConfiguration("/**", configuration);
 //        return source;
 //    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                //.addFilterBefore(corsFilter(), SessionManagementFilter.class)
+                .addFilterBefore(corsFilter(), SessionManagementFilter.class)
                 .authorizeRequests()
                 //.antMatchers("/**").permitAll()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/user/register").permitAll()
                 .antMatchers("/product/").permitAll()
-                .antMatchers("/**").permitAll()
-                .and()
-                .formLogin().successHandler(new AuthenticationSuccessHandler() {
-                    @Override public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {//do nothing
-                        response.setStatus(200);
-                    }
-                }).loginPage("http://localhost:3000/login").loginProcessingUrl("/user/login").failureUrl("http://localhost:3000/loginError")
+                .antMatchers("/**").authenticated()
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")

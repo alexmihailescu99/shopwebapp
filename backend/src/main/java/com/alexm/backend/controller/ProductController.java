@@ -56,4 +56,5 @@ public class ProductController {
         productDAO.delete(product);
         return new ResponseEntity<>("Sucessfully deleted " + name, HttpStatus.OK);
     }
+
 }

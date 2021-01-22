@@ -14,6 +14,8 @@ import xsxImg from "../static/img/xsx.jpg"
 import {Card, Button} from "react-bootstrap";
 import {GridList, GridListTile} from "@material-ui/core";
 
+axios.defaults.withCredentials = true
+
 const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 
 let styles = {

@@ -53,4 +53,11 @@ public class UserController {
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+    @PostMapping("/login")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<String> login() {
+        System.out.println("SOMEONE IS TRYING TO LOGIN");
+        return new ResponseEntity<>("Hi from login", HttpStatus.OK);
+    }
 }

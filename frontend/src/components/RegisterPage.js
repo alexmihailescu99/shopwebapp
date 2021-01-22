@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+axios.defaults.withCredentials = true
 export default class RegisterPage extends React.Component {
     constructor(props) {
         super(props);

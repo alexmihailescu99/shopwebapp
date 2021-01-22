@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-
+import qs from "qs";
+axios.defaults.withCredentials = true
 export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);
@@ -27,12 +28,19 @@ export default class LoginPage extends React.Component {
     
     onSubmit(e) {
         alert(this.state.username + " " + this.state.password);
-        axios.post("http://localhost:8080/user/login", {
-            username: this.state.username,
-            password: this.state.password
-        })
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/user/login',
+            data: qs.stringify({
+              username: this.state.username,
+              password: this.state.password
+            }),
+            headers: {
+              'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+            }
+          })
         .then((res) => {
-            alert("hi");
+            alert(res.data);
             alert(res.headers.get("set-cookie"));
             alert(res.status);
         })
