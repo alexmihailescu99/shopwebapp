@@ -25,16 +25,20 @@ public class Product {
     @Column(name="type")
     private String type;
 
+    @Column(name="details")
+    private String details;
+
     public Product() {
 
     }
 
-    public Product(String name, String title, String description, Integer price, String type) {
+    public Product(String name, String title, String description, Integer price, String type, String details) {
         this.name = name;
         this.title = title;
         this.description = description;
         this.price = price;
         this.type = type;
+        this.details = details;
     }
 
     public Long getId() {
@@ -83,6 +87,14 @@ public class Product {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     @Override

@@ -1,14 +1,16 @@
 import React from "react";
 import axios from "axios";
-import qs from "qs";
-axios.defaults.withCredentials = true
+import { PropTypes } from 'react'
+// axios.defaults.withCredentials = true
 export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
           username: "",
-          password: ""
+          password: "",
+          logged : false
         };
+        console.log(this.props);
         this.onChangeUserName = this.onChangeUserName.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -26,31 +28,29 @@ export default class LoginPage extends React.Component {
           });
     }
     
-    onSubmit(e) {
-        alert(this.state.username + " " + this.state.password);
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/user/login',
-            data: qs.stringify({
-              username: this.state.username,
-              password: this.state.password
-            }),
-            headers: {
-              'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-            }
-          })
-        .then((res) => {
-            alert(res.data);
-            alert(res.headers.get("set-cookie"));
-            alert(res.status);
-        })
-        .catch((err) => {
-            alert("error");
+    async onSubmit(e) {
+        // VERY VERY IMPORTANT DON'T YOU DARE EVER REMOVE THIS OR IT FUCKS UP THE WHOLE AUTHENTICATION ON THE FRONT-END
+        e.preventDefault();
+        // alert(this.state.username + " " + this.state.password);
+        try {
+            let res = await axios.post("http://localhost:8080/user/login", {
+                username: this.state.username,
+                password: this.state.password,
+                logged: true
+            });
+            alert("success");
+            // let stateUsername = this.state.username;
+            // this.props.history.push("/mata");
+        } catch (err) {
             alert(err);
-        })
+        } finally {
+            //alert("stop");
+        }
     }
 
     render() {
+        // this.props.user.username = this.state.username;
+        // this.props.user.loggedIn = this.state.logged;
         return (
             <form onSubmit={this.onSubmit}>
 

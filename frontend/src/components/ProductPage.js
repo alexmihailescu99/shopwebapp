@@ -1,19 +1,8 @@
 import React from "react";
 import axios from "axios";
-import samsungImg from "../static/img/samsung.jpg";
-import appleImg from "../static/img/apple.jpg";
-import huaweiImg from "../static/img/huawei.jpg";
-import onePlusImg from "../static/img/oneplus.jpg";
-import sonyImg from "../static/img/sony.jpg";
-import lgImg from "../static/img/lg.jpg";
-import asusImg from "../static/img/asus.jpg";
-import macbookImg from "../static/img/macbook.jpg";
-import razerImg from "../static/img/razer.jpg";
-import ps5Img from "../static/img/ps5.jpg"
-import xsxImg from "../static/img/xsx.jpg"
 import {Card, Button} from "react-bootstrap";
 import {GridList, GridListTile} from "@material-ui/core";
-
+import user from "../App";
 axios.defaults.withCredentials = true
 
 const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
@@ -27,48 +16,19 @@ let styles = {
 };
 const ProductProp = props => {
     let productName = props.product.name;
-    let x;
-    if (productName.startsWith("samsung")) {
-        x = samsungImg;
-    } else if (productName.startsWith("apple")) {
-        x = appleImg;
-    } else if (productName.startsWith("huawei")) {
-        x = huaweiImg;
-    } else if (productName.startsWith("oneplus")) {
-        x = onePlusImg;
-    }
-    else if (productName.startsWith("lg")) {
-        x = lgImg;
-    }
-    else if (productName.startsWith("sony")) {
-        x = sonyImg;
-    }
-    else if (productName.startsWith("asus")) {
-        x = asusImg;
-    }
-    else if (productName.startsWith("mac")) {
-        x = macbookImg;
-    }
-    else if (productName.startsWith("razer")) {
-        x = razerImg;
-    }
-    else if (productName.startsWith("ps5")) {
-        x = ps5Img;
-    }
-    else if (productName.startsWith("xsx")) {
-        x = xsxImg;
-    }
+    // I JUST SPENT CLOSE TO 30 MINUTES TO FIND OUT THAT YOU NEED TO .DEFAULT THIS IN ORDER FOR WEBPACK TO RETURN THE CORRECT PATH
+    const image = require('../static/img/' + props.product.name + '.jpg').default;
     return (
     <Card style={styles}>
-        <Card.Img variant="top" src={x} />
+        <a href = {"/" + props.product.type + "s/"+ props.product.name}><Card.Img variant="top" src={image} /> </a>
         <Card.Body>
             <Card.Title>{props.product.title} (${props.product.price})</Card.Title>
-            <Card.Text>{props.product.description}</Card.Text>
+            <hr></hr>
             <Button variant="primary" onClick={() => {}}> Purchase </Button>
             <Button className="float-right" variant="danger" onClick={() => {props.deleteProduct(props.product)}}>Delete</Button>
             <Button className="float-right" variant="warning" onClick={() => {props.editProduct(props.product.name)}}> Edit </Button>
         </Card.Body>
-        <hr></hr>
+
     </Card>
     );
 }
@@ -100,6 +60,7 @@ export default class ProductPage extends React.Component {
           })
     }
     componentDidMount() {
+        //alert(this.props.user.username);
         axios.get("http://localhost:8080/product/")
             .then(res => {
                 // Filter the array by type(smartphone, laptop etc)

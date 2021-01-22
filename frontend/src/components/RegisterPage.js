@@ -33,9 +33,9 @@ export default class RegisterPage extends React.Component {
           });
     }
     
-    onSubmit(e) {
+    async onSubmit(e) {
         alert(this.state.username + " " + this.state.password);
-        axios.post("http://localhost:8080/user/register", {
+        await axios.post("http://localhost:8080/user/register", {
             username: this.state.username,
             password: this.state.password,
             email: this.state.email

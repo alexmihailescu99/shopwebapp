@@ -6,6 +6,7 @@ import com.alexm.backend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.*;
@@ -28,6 +29,8 @@ public class ProductController {
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Product> showByName(@PathVariable String name) {
         Product product = productDAO.findByName(name);
+        //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //System.out.println("Item is being requested by" + user.getUsername() + " with id " + user.getId());
         if (product == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
@@ -36,14 +39,16 @@ public class ProductController {
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> add(@RequestBody Product product) {
         System.out.println("Controller " + product);
-        productDAO.add(new Product(product.getName(), product.getTitle(), product.getDescription(), product.getPrice(), product.getType()));
+        productDAO.add(new Product(product.getName(), product.getTitle(), product.getDescription(), product.getPrice(), product.getType(), product.getDetails()));
         return new ResponseEntity<>("Successfully added " + product.getName(), HttpStatus.OK);
     }
 
     @PostMapping("/update")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> update(@RequestBody Product product) {
-        productDAO.update(new Product(product.getName(), product.getTitle(), product.getDescription(), product.getPrice(), product.getType()));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("Item is being edited by" + user.getUsername());
+        productDAO.update(new Product(product.getName(), product.getTitle(), product.getDescription(), product.getPrice(), product.getType(), product.getDetails()));
         return new ResponseEntity<>("Successfully added " + product.getName(), HttpStatus.OK);
     }
 

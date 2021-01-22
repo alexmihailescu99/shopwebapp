@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 export default class EditProductPage extends React.Component {
     constructor(props) {
         super(props);
@@ -9,12 +9,14 @@ export default class EditProductPage extends React.Component {
             title: "",
             description: "",
             price: 0,
-            type: ""
+            type: "",
+            details: ""
         };
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangePrice = this.onChangePrice.bind(this);
+        this.onChangeDetails = this.onChangeDetails.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -27,7 +29,8 @@ export default class EditProductPage extends React.Component {
                 title: res.data.title,
                 description: res.data.description,
                 price: res.data.price,
-                type: res.data.type
+                type: res.data.type,
+                details: res.data.details
             })
         })
         .catch(err => {
@@ -58,13 +61,22 @@ export default class EditProductPage extends React.Component {
         });
     }
 
-    onSubmit(e) {
-        axios.post("http://localhost:8080/product/update", {
+    onChangeDetails(e) {
+        this.setState({
+            details: e.target.value
+        });
+    }
+
+    async onSubmit(e) {
+        
+        alert(this.state.description)
+        await axios.post("http://localhost:8080/product/update", {
             name: this.state.name,
             title: this.state.title,
             description: this.state.description,
             price: this.state.price,
-            type: this.state.type
+            type: this.state.type,
+            details: this.state.details
         }
         )
         .then((res) => {
@@ -97,9 +109,16 @@ export default class EditProductPage extends React.Component {
                 </div>
 
                 <div className="form-group">
+                    <label>Details</label>
+                    <input value={this.state.details} onChange={this.onChangeDetails} id="email" type="text" className="form-control" placeholder={this.state.details} />
+                </div>
+
+                <div className="form-group">
                     <label>Price</label>
                     <input value={this.state.price} onChange={this.onChangePrice} id="email" type="number" className="form-control" placeholder={this.state.price} />
                 </div>
+
+
 
                 <button type="submit" className="btn btn-dark btn-lg btn-block">Update product</button>
                 
