@@ -38,7 +38,9 @@ export default class LoginPage extends React.Component {
                 password: this.state.password,
                 logged: true
             });
-            alert("success");
+            alert(this.state.username);
+            localStorage.setItem("user", this.state.username);
+            localStorage.setItem("logged", "true");
             // let stateUsername = this.state.username;
             // this.props.history.push("/mata");
         } catch (err) {
@@ -49,8 +51,6 @@ export default class LoginPage extends React.Component {
     }
 
     render() {
-        // this.props.user.username = this.state.username;
-        // this.props.user.loggedIn = this.state.logged;
         return (
             <form onSubmit={this.onSubmit}>
 

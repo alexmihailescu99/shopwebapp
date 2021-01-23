@@ -60,7 +60,6 @@ export default class ProductPage extends React.Component {
           })
     }
     componentDidMount() {
-        //alert(this.props.user.username);
         axios.get("http://localhost:8080/product/")
             .then(res => {
                 // Filter the array by type(smartphone, laptop etc)
