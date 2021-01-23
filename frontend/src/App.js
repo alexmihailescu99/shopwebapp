@@ -16,6 +16,7 @@ import 'semantic-ui-css/semantic.min.css'
 import "./App.css";
 import LogoutService from "./components/LogoutService";
 import UserPage from "./components/UserPage";
+import 'mdbreact/dist/css/mdb.css'
 class App extends React.Component {
   constructor() {
     super();
@@ -36,8 +37,8 @@ class App extends React.Component {
     //alert(this.state.username);
   return (
     <Router>
-      <div className="container">
       <NavbarComponent userName = {this.state.username} logged={this.state.loggedIn}/>
+      <div className="container">
       <br/>
       <Route
         exact path='/'
@@ -122,8 +123,8 @@ class App extends React.Component {
         <ProductPage {...props} type="gaming" userName = {this.state.username} logged={this.state.loggedIn}/>
       )}    
       />
-      <FooterComponent/>
       </div>
+      <FooterComponent/>
     </Router>
   );
         }

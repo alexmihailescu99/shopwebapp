@@ -26,13 +26,13 @@ const ProductProp = props => {
             <hr></hr>
             <Button variant="primary" onClick={() => {}}> Purchase </Button>
             <Button className="float-right" variant="danger" onClick={() => {props.deleteProduct(props.product)}}>Delete</Button>
-            <Button className="float-right" variant="warning" onClick={() => {props.editProduct(props.product.name)}}> Edit </Button>
         </Card.Body>
 
     </Card>
     );
 }
-
+/* <Button className="float-right" variant="warning" onClick={() => {props.editProduct(props.product.name)}}> Edit </Button> */
+/* <Button className="float-right" variant="danger" onClick={() => {props.deleteProduct(props.product)}}>Delete</Button> */
 
 export default class ProductPage extends React.Component {
     constructor(props) {
