@@ -17,6 +17,9 @@ import "./App.css";
 import LogoutService from "./components/LogoutService";
 import UserPage from "./components/UserPage";
 import 'mdbreact/dist/css/mdb.css'
+import axios from "axios";
+import NotAuthenticatedPage from "./components/NotAuthenticatedPage";
+import NotAuthorizedPage from "./components/NotAuthorizedPage";
 class App extends React.Component {
   constructor() {
     super();
@@ -26,7 +29,22 @@ class App extends React.Component {
     }
     localStorage.setItem("loggedIn", "false");
   }
-
+  
+  // Check if session has expired
+  componentDidMount() {
+    axios.get("http://localhost:8080/product/add")
+    .then(res => {
+      // do nothing, it means user is logged in
+    }
+      )
+    .catch(err => {
+      if (err.response.status === 401) {
+        localStorage.setItem("user", "null");
+        localStorage.setItem("logged", false);
+      }
+    }
+    );
+  }
   componentDidUpdate(prevProps, prevState) {
     if(prevState != this.state) {
       localStorage.setItem("state", this.state);
@@ -62,6 +80,8 @@ class App extends React.Component {
       )} 
       />
       <Route exact path="/register" component ={RegisterPage} userName = {this.state.username} logged={this.state.loggedIn}/>
+      <Route exact path="/notAuthenticated" component={NotAuthenticatedPage} />
+      <Route exact path="/notAuthorized" component={NotAuthorizedPage}/>
       <Route exact path="/laptops/edit/:name" component={EditProductPage} userName = {this.state.username} logged={this.state.loggedIn}/>
       <Route exact path="/smartphones/edit/:name" component={EditProductPage} userName = {this.state.username} logged={this.state.loggedIn}/*onEnter={requireAuth}*//>
       <Route exact path="/gamings/edit/:name" component={EditProductPage} userName = {this.state.username} logged={this.state.loggedIn}/*onEnter={requireAuth}*/ />
@@ -123,6 +143,7 @@ class App extends React.Component {
         <ProductPage {...props} type="gaming" userName = {this.state.username} logged={this.state.loggedIn}/>
       )}    
       />
+
       </div>
       <FooterComponent/>
     </Router>

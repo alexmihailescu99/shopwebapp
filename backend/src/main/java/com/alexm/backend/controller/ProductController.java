@@ -29,8 +29,10 @@ public class ProductController {
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Product> showByName(@PathVariable String name) {
         Product product = productDAO.findByName(name);
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println("Item is being requested by" + user.getUsername() + " with id " + user.getId());
+        //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //System.out.println(user == null);
+        //if (user == null) System.out.println("Item is being requested anonymously");
+        //else System.out.println("Item is being requested by" + user.getUsername() + " with id " + user.getId());
         if (product == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }

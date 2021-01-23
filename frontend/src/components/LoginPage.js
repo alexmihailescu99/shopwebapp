@@ -38,13 +38,17 @@ export default class LoginPage extends React.Component {
                 password: this.state.password,
                 logged: true
             });
-            alert(this.state.username);
+            alert("Welcome, " + this.state.username);
             localStorage.setItem("user", this.state.username);
             localStorage.setItem("logged", "true");
+            window.location.href="/";
             // let stateUsername = this.state.username;
             // this.props.history.push("/mata");
         } catch (err) {
-            alert(err);
+            if (err.response.status == 401) {
+                alert("Invalid data, please try again");
+                window.location.reload();
+            }
         } finally {
             //alert("stop");
         }

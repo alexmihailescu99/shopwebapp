@@ -61,8 +61,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/user/register").permitAll()
                 .antMatchers("/product/").permitAll()
+                .antMatchers("/product/**").rememberMe()
                 .antMatchers("/product/update").rememberMe()
                 .antMatchers("/product/add").rememberMe()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(new NoPopUpAuth())
                 .and()
                 .csrf().disable()
                 .httpBasic();

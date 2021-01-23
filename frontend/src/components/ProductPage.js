@@ -20,12 +20,11 @@ const ProductProp = props => {
     const image = require('../static/img/' + props.product.name + '.jpg').default;
     return (
     <Card style={styles}>
-        <a href = {"/" + props.product.type + "s/"+ props.product.name}><Card.Img variant="top" src={image} /> </a>
+        <a href = {"/" + props.product.type + "s/"+ props.product.name}><Card.Img onMouseOver={e => {e.currentTarget.style.opacity="0.7"}} onMouseOut={e => {e.currentTarget.style.opacity="1"}} variant="top" src={image} /> </a>
         <Card.Body>
             <Card.Title>{props.product.title} (${props.product.price})</Card.Title>
             <hr></hr>
             <Button variant="primary" onClick={() => {}}> Purchase </Button>
-            <Button className="float-right" variant="danger" onClick={() => {props.deleteProduct(props.product)}}>Delete</Button>
         </Card.Body>
 
     </Card>
@@ -80,14 +79,10 @@ export default class ProductPage extends React.Component {
     }
 
     setSort(sortOrder) {
-        this.setState({
-            sort: sortOrder
-        })
         let array = Array.from(this.state.products);
-        if (!this.setState) array.sort((a, b) => (a.price > b.price) ? 1 : -1);
-        else array.sort((a, b) => (a.price > b.price) ? -1 : 1);  
         this.setState({
-            products: array
+            sort: sortOrder,
+            products: (!this.state.sortOrder) ? array.sort((a, b) => (a.price > b.price) ? 1 : -1) : array.sort((a, b) => (a.price > b.price) ? -1 : 1)
         })
        // window.location.reload();
     } 

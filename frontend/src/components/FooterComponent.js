@@ -3,8 +3,8 @@ import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 
 const FooterPage = () => {
     return (
-    // Make it stick to the bottom
       <MDBFooter color="blue" className="font-small pt-4 mt-4 footer">
+        <div className="container">
         <MDBContainer fluid className="text-center text-md-left">
           <MDBRow>
             <MDBCol md="6">
@@ -14,7 +14,7 @@ const FooterPage = () => {
                 content.
               </p>
             </MDBCol>
-            <MDBCol md="6">
+            <MDBCol md="6" className="float-right">
               <h5 className="title">Links</h5>
               <ul>
                 <li className="list-unstyled">
@@ -37,6 +37,7 @@ const FooterPage = () => {
           <MDBContainer fluid>
             &copy; {new Date().getFullYear()} Copyright: <a href=""> Alex Mihailescu</a>
           </MDBContainer>
+        </div>
         </div>
       </MDBFooter>
     );
