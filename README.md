@@ -11,8 +11,8 @@
 <p>Admin panel for adding/editing products(the entire web app can be controlled through the UI, no need to dive into the code)</p>
 <p>All content served over <strong>HTTPS</strong></p>
 
-Solarized dark             |  Solarized Ocean
+<strong>User Panel</strong>    |  <strong>Admin Panel</strong>
 :-------------------------:|:-------------------------:
-![sitelanding](https://user-images.githubusercontent.com/14853367/105646957-8ba1fe00-5eab-11eb-9a98-06a432759bac.jpg)  |  ![sitelanding](https://user-images.githubusercontent.com/14853367/105646957-8ba1fe00-5eab-11eb-9a98-06a432759bac.jpg)
+![sitelanding](https://user-images.githubusercontent.com/14853367/105646957-8ba1fe00-5eab-11eb-9a98-06a432759bac.jpg)  |  ![image](https://user-images.githubusercontent.com/14853367/105647772-8b583180-5eb0-11eb-8749-2dd4af07b171.png)
 
 
