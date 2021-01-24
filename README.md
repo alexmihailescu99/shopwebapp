@@ -5,6 +5,7 @@
 
 # Features
 <p><strong>Dynamically</strong> generated pages with products from a database</p>
+![image](https://user-images.githubusercontent.com/14853367/105647825-db36f880-5eb0-11eb-8a81-1163be01ac3f.png)
 <p>User <strong>Authentication</strong> & <strong>Registration</strong></p>
 <p>MySQL Database with <strong>secured</strong> passwords</p>
 <p><strong>Role-based</strong> authentication(<strong>User</strong> & <strong>Admin</strong>, but can easily be extended to any number)</p>
