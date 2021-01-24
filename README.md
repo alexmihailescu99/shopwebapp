@@ -4,10 +4,10 @@
 <p>The web app was deployed to <strong>Heroku</strong> as two separate projects that communicate with each other securely via HTTPS</p>
 
 # Features
-<p>Dynamically generated pages with products from a database</p>
-<p>User Authentication & Registration</p>
+<p><strong>Dynamically</strong> generated pages with products from a database</p>
+<p>User <strong>Authentication</strong> & <strong>Registration</strong></p>
 <p>MySQL Database with <strong>secured</strong> passwords</p>
-<p><strong>Role-based</strong> authentication(User & Admin, but can easily be extended to any number)</p>
+<p><strong>Role-based</strong> authentication(<strong>User</strong> & <strong>Admin</strong>, but can easily be extended to any number)</p>
 <p>Admin panel for adding/editing products(the entire web app can be controlled through the UI, no need to dive into the code)</p>
 <p>All content served over <strong>HTTPS</strong></p>
 
