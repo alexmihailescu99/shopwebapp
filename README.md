@@ -1,2 +1,3 @@
 # Shop Web App
-[sitelanding.jpg](https://postimg.cc/y3ZZ9ts1)
+![sitelanding](https://user-images.githubusercontent.com/14853367/105646957-8ba1fe00-5eab-11eb-9a98-06a432759bac.jpg)
+
