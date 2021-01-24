@@ -1,7 +1,7 @@
 # Shop Web App
-This project was created using Java (Spring Boot, MVC & Security) and MySQL & Hibernate ORM on the back-end.
-The front-end was written in JavaScript, using the React.js framework.
-The web app was deployed to Heroku as two separate projects
+<p>This project was created using Java (Spring Boot, MVC & Security) and MySQL & Hibernate ORM on the back-end. </p>
+<p>The front-end was written in <strong>JavaScript</strong>, using the <strong>React.js</strong> framework.</p>
+<p>The web app was deployed to <strong>Heroku</strong> as two separate projects that communicate with each other securely via HTTPS</p>
 
 # Features
 <p>Dynamically generated pages with products from a database</p>
