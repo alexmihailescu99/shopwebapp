@@ -4,7 +4,7 @@ The front-end was written in JavaScript, using the React.js framework.
 The web app was deployed to Heroku as two separate projects
 
 # Features
-Dynamically generated pages with products from a database
+<p>Dynamically generated pages with products from a database</p>
 User Authentication & Registration
 MySQL Database with hashed passwords
 Role-based authentication(User & Admin, but can easily be extended to any number)
