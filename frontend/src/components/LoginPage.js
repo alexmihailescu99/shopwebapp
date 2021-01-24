@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { PropTypes } from 'react'
 // axios.defaults.withCredentials = true
+const backEndUrl = "http://localhost:8080";
 export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);
@@ -33,7 +34,7 @@ export default class LoginPage extends React.Component {
         e.preventDefault();
         // alert(this.state.username + " " + this.state.password);
         try {
-            let res = await axios.post("http://localhost:8080/user/login", {
+            let res = await axios.post(backEndUrl + "/user/login", {
                 username: this.state.username,
                 password: this.state.password,
             });

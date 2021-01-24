@@ -63,7 +63,17 @@ export default class SingleProductPage extends React.Component {
                       <div className="product-gallery-thumbnails">
                       </div>
                       <div className="product-gallery-featured">
-                        <img src={this.state.image} className="productImg" alt=""/>
+                      <div className="view zoom overlay  mb-3 mb-md-0">
+                <img className="img-fluid  productImg"
+                  src={this.state.image} alt="Sample"/>
+                <a href="#!">
+                  <div className="mask waves-effect waves-light">
+                    <img className="img-fluid  productImg"
+                      src={this.state.image}/>
+                    <div className="mask  waves-effect waves-light"></div>
+                  </div>
+                </a>
+              </div>
                       </div>
                     </div>
                     <div className="product-seller-recommended">
@@ -89,7 +99,7 @@ export default class SingleProductPage extends React.Component {
                     <h4 className="product-title mb-2">{this.state.title + " " + this.state.details}</h4>
                     <h2 className="product-price display-4">$ {this.state.price}.00</h2>
                     <p className="text-success"><i className="fa fa-credit-card"></i> Up to 12 installments</p>
-                    <p className="mb-0"><i className="fa fa-truck"></i>2-day delivery anywhere in RO</p>
+                    <p className="mb-0"><i className="fa fa-truck"></i> 2-day delivery anywhere in RO</p>
                     <div className="text-muted mb-2"><small>Find out more about delivery time and shipping forms</small></div>
                     <label for="quant">Quantity</label>
                     <input type="number" name="quantity" min="1" id="quant" className="form-control mb-5 input-lg" placeholder="Choose the quantity"/>

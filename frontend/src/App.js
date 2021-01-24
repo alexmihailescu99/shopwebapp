@@ -21,7 +21,7 @@ import 'mdbreact/dist/css/mdb.css'
 import axios from "axios";
 import NotAuthenticatedPage from "./components/NotAuthenticatedPage";
 import NotAuthorizedPage from "./components/NotAuthorizedPage";
-import NotFoundPage from "./components/NotFoundPage";
+import ShoppingCartPage from "./components/ShoppingCartPage";
 class App extends React.Component {
   constructor() {
     super();
@@ -94,6 +94,7 @@ class App extends React.Component {
       <Route exact path="/smartphones/edit/:name" component={EditProductPage} />
       <Route exact path="/gamings/edit/:name" component={EditProductPage} />
       <Route exact path="/pcparts/edit/:name" component={EditProductPage} />
+      <Route exact path="/user/:name/shoppingCart" component = {ShoppingCartPage} />
 
       <Route
         exact path='/smartphones'

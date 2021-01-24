@@ -53,7 +53,7 @@ public class UserController {
             return new ResponseEntity<>("User already exists", HttpStatus.BAD_REQUEST);
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList(roleDAO.findByName("ROLE_ADMIN")));
+        user.setRoles(Arrays.asList(roleDAO.findByName("ROLE_USER")));
         userDAO.add(user);
         return new ResponseEntity<>("User added", HttpStatus.OK);
     }

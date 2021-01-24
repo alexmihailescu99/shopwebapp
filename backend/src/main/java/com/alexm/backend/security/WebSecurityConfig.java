@@ -84,8 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(new NoPopUpAuth())
                 .and()
+                // Solves some weird user issues(wrong user being returned for example)
                 .httpBasic();
-        // Solves some weird user issues(wrong user being returned for example)
     }
 
 
