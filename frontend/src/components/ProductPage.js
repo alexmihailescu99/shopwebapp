@@ -18,17 +18,34 @@ const ProductProp = props => {
     let productName = props.product.name;
     // I JUST SPENT CLOSE TO 30 MINUTES TO FIND OUT THAT YOU NEED TO .DEFAULT THIS IN ORDER FOR WEBPACK TO RETURN THE CORRECT PATH
     const image = require('../static/img/' + props.product.name + '.jpg').default;
-    return (
-    <Card style={styles}>
-        <a href = {"/" + props.product.type + "s/"+ props.product.name}><Card.Img onMouseOver={e => {e.currentTarget.style.opacity="0.7"}} onMouseOut={e => {e.currentTarget.style.opacity="1"}} variant="top" src={image} /> </a>
-        <Card.Body>
-            <Card.Title>{props.product.title} (${props.product.price})</Card.Title>
-            <hr></hr>
-            <Button variant="primary" onClick={() => {}}> Purchase </Button>
-        </Card.Body>
-
-    </Card>
-    );
+    if (props.userRole === "ANON" || props.userRole === "USER") {
+        return (
+            <Card style={styles}>
+                <a href = {"/" + props.product.type + "s/"+ props.product.name}><Card.Img onMouseOver={e => {e.currentTarget.style.opacity="0.7"}} onMouseOut={e => {e.currentTarget.style.opacity="1"}} variant="top" src={image} /> </a>
+                <Card.Body>
+                    <Card.Title>{props.product.title} (${props.product.price})</Card.Title>
+                    <hr></hr>
+                    <Button variant="primary" onClick={() => {}}> Purchase </Button>
+                </Card.Body>
+        
+            </Card>
+            );
+    } else if (props.userRole === "ADMIN") {
+        return (
+            <Card style={styles}>
+                <a href = {"/" + props.product.type + "s/"+ props.product.name}><Card.Img onMouseOver={e => {e.currentTarget.style.opacity="0.7"}} onMouseOut={e => {e.currentTarget.style.opacity="1"}} variant="top" src={image} /> </a>
+                <Card.Body>
+                    <Card.Title>{props.product.title} (${props.product.price})</Card.Title>
+                    <hr></hr>
+                    <Button variant="primary" onClick={() => {}}> Purchase </Button>
+                    <Button className="float-right" variant="warning" onClick={() => {props.editProduct(props.product.name)}}> Edit </Button>
+                    <Button className="float-right" variant="danger" onClick={() => {props.deleteProduct(props.product)}}>Delete</Button>
+                </Card.Body>
+        
+            </Card>
+            );
+    }
+    
 }
 /* <Button className="float-right" variant="warning" onClick={() => {props.editProduct(props.product.name)}}> Edit </Button> */
 /* <Button className="float-right" variant="danger" onClick={() => {props.deleteProduct(props.product)}}>Delete</Button> */
@@ -87,6 +104,10 @@ export default class ProductPage extends React.Component {
        // window.location.reload();
     } 
     render() {
+        let userRole = localStorage.getItem("role");
+        if (userRole === null) {
+            userRole = "ANON";
+        }
         let productArray = this.productList();
         return (
           <div>
@@ -97,7 +118,7 @@ export default class ProductPage extends React.Component {
             productArray.map(currentProduct => {
                 return (
                 <GridListTile style={styles}>
-                    <ProductProp product={currentProduct} editProduct={this.editProduct} deleteProduct={this.deleteProduct}/>
+                    <ProductProp product={currentProduct} editProduct={this.editProduct} deleteProduct={this.deleteProduct} userRole = {userRole}/>
                 </GridListTile>
                 )
             })

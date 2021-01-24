@@ -34,7 +34,7 @@ export default class SingleProductPage extends React.Component {
         .catch(err => {
           //alert(err.response.status);
             if (err.response.status === 401) {
-              window.location.href="/notAuthenticated";
+              window.location.href="/login";
             } else if (err.response.status === 403) {
               window.location.href="/notAuthorized";
             }

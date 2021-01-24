@@ -1,7 +1,8 @@
 import React from "react";
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from "react-router-dom";
 import NavbarComponent from "./components/NavbarComponent";
 import ProductPage from "./components/ProductPage";
@@ -20,27 +21,32 @@ import 'mdbreact/dist/css/mdb.css'
 import axios from "axios";
 import NotAuthenticatedPage from "./components/NotAuthenticatedPage";
 import NotAuthorizedPage from "./components/NotAuthorizedPage";
+import NotFoundPage from "./components/NotFoundPage";
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {
-      username: "mata",
-      loggedIn: false
-    }
-    localStorage.setItem("loggedIn", "false");
+
   }
   
   // Check if session has expired
   componentDidMount() {
-    axios.get("http://localhost:8080/product/add")
+    //localStorage.setItem("role", "USER");
+    document.title = "Shop Web App";
+    axios.get("http://localhost:8080/user/checkExpired")
     .then(res => {
-      // do nothing, it means user is logged in
+      // it means user is logged in
+      //alert(localStorage.getItem("logged"));
+      localStorage.setItem("logged", "true");
+      localStorage.setItem("user", res.data.username);
+      localStorage.setItem("role", res.data.authorities[0].authority.replace("ROLE_", ""))
     }
       )
     .catch(err => {
+     // alert(localStorage.getItem("logged"));
       if (err.response.status === 401) {
         localStorage.setItem("user", "null");
-        localStorage.setItem("logged", false);
+        localStorage.setItem("logged", "false");
+        localStorage.setItem("role", "ANON");
       }
     }
     );
@@ -51,25 +57,27 @@ class App extends React.Component {
     }
   }
 
+  //
   render() {
     //alert(this.state.username);
   return (
     <Router>
-      <NavbarComponent userName = {this.state.username} logged={this.state.loggedIn}/>
+      <NavbarComponent/>
+      <Switch>
       <div className="container">
       <br/>
       <Route
         exact path='/'
         render={(props) => (
-        <ProductPage {...props} type="electronic" userName = {this.state.username} logged={this.state.loggedIn}/>
+        <ProductPage {...props} type="electronic"/>
       )}    
       
       />
-      <Route exact path="/add" component={AddProductPage} userName = {this.state.username} logged={this.state.loggedIn}/*onEnter={requireAuth}*//>
+      <Route exact path="/add" component={AddProductPage} />
       <Route
         exact path='/login'
         render={(props) => (
-        <LoginPage {...props} userChange={this.handleUserChange}/>
+        <LoginPage {...props} />
       )} 
       />
 
@@ -79,18 +87,18 @@ class App extends React.Component {
         <LogoutService {...props} />
       )} 
       />
-      <Route exact path="/register" component ={RegisterPage} userName = {this.state.username} logged={this.state.loggedIn}/>
+      <Route exact path="/register" component = {RegisterPage} />
       <Route exact path="/notAuthenticated" component={NotAuthenticatedPage} />
       <Route exact path="/notAuthorized" component={NotAuthorizedPage}/>
-      <Route exact path="/laptops/edit/:name" component={EditProductPage} userName = {this.state.username} logged={this.state.loggedIn}/>
-      <Route exact path="/smartphones/edit/:name" component={EditProductPage} userName = {this.state.username} logged={this.state.loggedIn}/*onEnter={requireAuth}*//>
-      <Route exact path="/gamings/edit/:name" component={EditProductPage} userName = {this.state.username} logged={this.state.loggedIn}/*onEnter={requireAuth}*/ />
-      <Route exact path="/pcparts/edit/:name" component={EditProductPage} userName = {this.state.username} logged={this.state.loggedIn}/*onEnter={requireAuth}*//>
+      <Route exact path="/laptops/edit/:name" component={EditProductPage} />
+      <Route exact path="/smartphones/edit/:name" component={EditProductPage} />
+      <Route exact path="/gamings/edit/:name" component={EditProductPage} />
+      <Route exact path="/pcparts/edit/:name" component={EditProductPage} />
 
       <Route
         exact path='/smartphones'
         render={(props) => (
-        <ProductPage {...props} type="smartphone" userName = {this.state.username} logged={this.state.loggedIn}/>
+        <ProductPage {...props} type="smartphone" />
       )}
       />
 
@@ -104,7 +112,7 @@ class App extends React.Component {
       <Route
         exact path='/smartphones/:name'
         render={(props) => (
-        <SingleProductPage {...props} type="smartphone" userName = {this.state.username} logged={this.state.loggedIn}/>
+        <SingleProductPage {...props} type="smartphone" />
       )}
       />
       
@@ -112,39 +120,39 @@ class App extends React.Component {
       <Route
         exact path='/laptops/:name'
         render={(props) => (
-        <SingleProductPage {...props} type="laptop" userName = {this.state.username} logged={this.state.loggedIn}/>
+        <SingleProductPage {...props} type="laptop" />
       )}    
       />
 
        <Route
         exact path='/laptops'
         render={(props) => (
-        <ProductPage {...props} type="laptop" userName = {this.state.username} logged={this.state.loggedIn}/>
+        <ProductPage {...props} type="laptop" />
       )}    
       />
 
       <Route
         exact path='/gaming/:name'
         render={(props) => (
-        <SingleProductPage {...props} type="gaming" userName = {this.state.username} logged={this.state.loggedIn}/>
+        <SingleProductPage {...props} type="gaming" />
       )}    
       />
 
       <Route
         exact path='/pcparts/:name'
         render={(props) => (
-        <SingleProductPage {...props} type="pcparts" userName = {this.state.username} logged={this.state.loggedIn}/>
+        <SingleProductPage {...props} type="pcparts" />
       )}    
       />
 
       <Route
         exact path='/gaming'
         render={(props) => (
-        <ProductPage {...props} type="gaming" userName = {this.state.username} logged={this.state.loggedIn}/>
+        <ProductPage {...props} type="gaming" />
       )}    
       />
-
       </div>
+      </Switch>
       <FooterComponent/>
     </Router>
   );

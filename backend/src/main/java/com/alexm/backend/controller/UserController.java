@@ -1,23 +1,24 @@
 package com.alexm.backend.controller;
 
+import com.alexm.backend.dao.RoleDAO;
 import com.alexm.backend.dao.UserDAO;
 import com.alexm.backend.entity.Product;
 import com.alexm.backend.entity.User;
+import com.alexm.backend.security.MyUserDetails;
 import com.alexm.backend.security.UserCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -27,6 +28,8 @@ public class UserController {
     AuthenticationManager authenticationManager;
     @Autowired
     private UserDAO userDAO;
+    @Autowired
+    private RoleDAO roleDAO;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     public User getCurrentUser() {
@@ -49,36 +52,48 @@ public class UserController {
         if (checkIfExists != null) {
             return new ResponseEntity<>("User already exists", HttpStatus.BAD_REQUEST);
         }
-        userDAO.add(new User(user.getUsername(), bCryptPasswordEncoder.encode(user.getPassword()), user.getEmail()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles(Arrays.asList(roleDAO.findByName("ROLE_ADMIN")));
+        userDAO.add(user);
         return new ResponseEntity<>("User added", HttpStatus.OK);
     }
 
     @GetMapping("/{name}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<User> showUser(@PathVariable String name) {
+    public ResponseEntity<UserDetails> showUser(@PathVariable String name) {
         User user = userDAO.findByName(name);
         if (user == null) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         // Again, probably bad practice, but we don't need the user pass in this case
         user.setPassword("null");
         // There's probably a better way of doing this
 
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(new MyUserDetails(user), HttpStatus.OK);
+    }
+
+    @GetMapping("/checkExpired")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<UserDetails> checkExpired() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //System.out.println(user == null);
+        return new ResponseEntity<>(userDetails, HttpStatus.OK);
     }
 
     @PostMapping("/login")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Authentication login(@RequestBody UserCredentials userCredentials) {
+    public ResponseEntity<UserDetails> login(@RequestBody UserCredentials userCredentials) throws AuthenticationException {
         System.out.println(userCredentials);
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userCredentials.getUsername(), userCredentials.getPassword()));
+        User user = userDAO.findByName(userCredentials.getUsername());
+        if (user == null || !bCryptPasswordEncoder.matches(userCredentials.getPassword(), user.getPassword())) {
+            throw new BadCredentialsException("Wrong username or password");
+        }
+        MyUserDetails userDetails = new MyUserDetails(user);
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userCredentials.getUsername(), userCredentials.getPassword(), userDetails.getAuthorities()));
         boolean isAuthenticated = isAuthenticated(authentication);
         if (isAuthenticated) {
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            User user = getCurrentUser();
-            System.out.println(user.getUsername() + " has authenticated");
-            //return new ResponseEntity<>("Welcome " + user.getUsername(), HttpStatus.OK);
-        } //else return new ResponseEntity<>("Could not authenticate", HttpStatus.UNAUTHORIZED);
-        if (authentication == null) System.out.println("E NULA AUTENTIFICAREA BAA");
-        return authentication;
+            System.out.println(userCredentials.getUsername() + " has authenticated");
+            return new ResponseEntity<>(new MyUserDetails(user), HttpStatus.OK);
+        } else return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
 
     private boolean isAuthenticated(Authentication authentication) {

@@ -7,8 +7,9 @@ export default class UserPage extends React.Component {
         this.state = {
             username: localStorage.getItem("user"),
             loggedIn : localStorage.getItem("logged"),
+            role: localStorage.getItem("role"),
             serverName: "",
-            serverEmail: ""
+            serverEmail: "",
         }
     }
 
@@ -18,7 +19,8 @@ export default class UserPage extends React.Component {
         .then(res => {
             this.setState({
                 serverName: res.data.username,
-                serverEmail: res.data.email
+                serverEmail: res.data.email,
+                role: res.data.authorities[0].authority.replace("ROLE_", "")
             })
             //alert('../static/img/' + this.state.name + '.jpg')
         })
@@ -29,7 +31,7 @@ export default class UserPage extends React.Component {
 
     render() {
         return (
-            <h1>{this.state.serverName + " " + this.state.serverEmail}</h1>
+            <h1>{this.state.serverName + " " + this.state.serverEmail + " " + this.state.role}</h1>
         )
     }
 }

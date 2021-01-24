@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 export default class EditProductPage extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +21,10 @@ export default class EditProductPage extends React.Component {
     }
 
     componentDidMount() {
+        let role = localStorage.getItem("role");
+        if (role === "USER" || role === "ANON") {
+            window.location.href = "/notAuthorized";
+        }
         let link = "http://localhost:8080/product/" + this.props.match.params.name;
         axios.get(link)
         .then(res => {
@@ -83,7 +87,7 @@ export default class EditProductPage extends React.Component {
             alert(res.status);
         })
         .catch((err) => {
-            alert(err);
+            alert(err.response.status);
         })
     }
 

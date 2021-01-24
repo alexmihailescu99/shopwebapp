@@ -18,6 +18,11 @@ public class BackendApplication {
 		return new BCryptPasswordEncoder();
 	}
 
+//	@Bean
+//	public MyUserDetailsService myUserDetailsService() {
+//		return new MyUserDetailsService();
+//	}
+
 
 
 	@Bean

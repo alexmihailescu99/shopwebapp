@@ -9,8 +9,10 @@ export default class LogoutService extends React.Component {
     componentDidMount() {
         axios.get("http://localhost:8080/user/logout")
         .then(res => {
-            localStorage.setItem("user", "");
-            localStorage.setItem("logged", false);
+            localStorage.setItem("user", null);
+            localStorage.setItem("logged", "false");
+            localStorage.setItem("role", "ANON");
+            window.location.href = "/";
         })
         .catch(err => {
             alert(err.response.status);

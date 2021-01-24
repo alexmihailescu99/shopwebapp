@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.*;
@@ -48,8 +49,8 @@ public class ProductController {
     @PostMapping("/update")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> update(@RequestBody Product product) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println("Item is being edited by" + user.getUsername());
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("Item is being edited by" + userDetails.getUsername());
         productDAO.update(new Product(product.getName(), product.getTitle(), product.getDescription(), product.getPrice(), product.getType(), product.getDetails()));
         return new ResponseEntity<>("Successfully added " + product.getName(), HttpStatus.OK);
     }

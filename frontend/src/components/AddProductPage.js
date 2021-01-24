@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-axios.defaults.withCredentials = true
+const backEndUrl = "http://localhost:8080";
 export default class AddProductPage extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +20,10 @@ export default class AddProductPage extends React.Component {
     }
 
     componentDidMount() {
-       
+        let role = localStorage.getItem("role");
+        if (role === "USER" || role === "ANON") {
+            window.location.href = "/notAuthorized";
+        }
     }
     onChangeName(e) {
         this.setState({

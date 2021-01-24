@@ -14,6 +14,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { // (1)
         User user = userDAO.findByName(username);
         if (user == null) throw new UsernameNotFoundException("User not found");
-        return (UserDetails) user;
+
+        return new MyUserDetails(user);
     }
 }

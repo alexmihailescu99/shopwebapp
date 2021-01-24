@@ -36,17 +36,17 @@ export default class LoginPage extends React.Component {
             let res = await axios.post("http://localhost:8080/user/login", {
                 username: this.state.username,
                 password: this.state.password,
-                logged: true
             });
-            alert("Welcome, " + this.state.username);
-            localStorage.setItem("user", this.state.username);
+            alert("Welcome, " + res.data.username);
+            localStorage.setItem("user", res.data.username);
             localStorage.setItem("logged", "true");
+            localStorage.setItem("role", res.data.authorities[0].authority.replace("ROLE_", ""));
             window.location.href="/";
             // let stateUsername = this.state.username;
             // this.props.history.push("/mata");
         } catch (err) {
             if (err.response.status == 401) {
-                alert("Invalid data, please try again");
+                alert(err.response.data.message)
                 window.location.reload();
             }
         } finally {
