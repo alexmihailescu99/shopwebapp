@@ -4,6 +4,8 @@
 <p>The Java back-end is basically a (not yet fully compliant) <strong>REST</strong> API which serves content to the React front-end</p>
 <p>I chose not to use a server-side template engine such as Thymeleaf as I have more experience with React</p>
 <p>The web app was deployed to <strong>Heroku</strong> as two separate projects that communicate with each other securely via HTTPS</p>
+<p>This GitHub repository contains the local version of the app</p>
+<p>The actual Heroku web app is a bit different(updated links, HTTPS support) & has a different folder layout</p>
 
 # Features
 <p><strong>Dynamically</strong> generated pages with products from a database</p>
