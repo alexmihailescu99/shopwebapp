@@ -1,6 +1,8 @@
 # eCommerce Web App - https://am-shopwebapp.herokuapp.com/
 <p>This project was created using <strong>Java</strong>(Spring Boot, MVC & Security) and <strong>MySQL</strong> & <strong>Hibernate</strong> ORM on the back-end. </p>
 <p>The front-end was written in <strong>JavaScript</strong>, using the <strong>React.js</strong> framework.</p>
+<p>The Java back-end is basically a (not yet fully compliant) <strong>REST</strong> API which serves content to the React front-end</p>
+<p>I chose not to use a server-side template engine such as Thymeleaf as I have more experience with React</p>
 <p>The web app was deployed to <strong>Heroku</strong> as two separate projects that communicate with each other securely via HTTPS</p>
 
 # Features
