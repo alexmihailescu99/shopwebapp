@@ -16,6 +16,9 @@
 <p>Better understanding of HTTP & HTTPS requests/responses, headers, CORS, cookies</p>
 <p>Deploying a web app online</p>
 
+# Product page
+![image](https://user-images.githubusercontent.com/14853367/105648119-5fd64680-5eb2-11eb-9aa8-4a42dd956fa6.png)
+
 <strong>User Panel</strong>    |  <strong>Admin Panel</strong>
 :-------------------------:|:-------------------------:
 ![sitelanding](https://user-images.githubusercontent.com/14853367/105646957-8ba1fe00-5eab-11eb-9a98-06a432759bac.jpg)  |  ![image](https://user-images.githubusercontent.com/14853367/105647772-8b583180-5eb0-11eb-8749-2dd4af07b171.png)
