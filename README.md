@@ -1,4 +1,4 @@
-# Shop Web App - https://am-shopwebapp.herokuapp.com/
+# eCommerce Web App - https://am-shopwebapp.herokuapp.com/
 <p>This project was created using <strong>Java</strong>(Spring Boot, MVC & Security) and <strong>MySQL</strong> & <strong>Hibernate</strong> ORM on the back-end. </p>
 <p>The front-end was written in <strong>JavaScript</strong>, using the <strong>React.js</strong> framework.</p>
 <p>The web app was deployed to <strong>Heroku</strong> as two separate projects that communicate with each other securely via HTTPS</p>
@@ -16,6 +16,10 @@
 <p>Better understanding of HTTP & HTTPS requests/responses, headers, CORS, cookies</p>
 <p>Better understanding of relational database concepts such as many to many relationships or join tables(previous basic experience with NoSQL)</p>
 <p>Deploying a web app online</p>
+
+# To Do
+<p>Shopping Cart</p>
+<p>Generate a unique ID order after checkout & send confirmation on the user's email</p>
 
 # Product page
 ![image](https://user-images.githubusercontent.com/14853367/105648119-5fd64680-5eb2-11eb-9aa8-4a42dd956fa6.png)
