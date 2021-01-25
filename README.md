@@ -13,7 +13,7 @@
 
 # Things I learned
 <p>Developing a <strong>CRUD</strong> application using Java & Spring(previous basic experience with Node.js)</p>
-<p>Better understanding of <strong>HTTP & <strong>HTTPS requests/responses, headers, CORS, cookies</p>
+<p>Better understanding of <strong>HTTP & </strong>HTTPS requests/responses, headers, CORS, cookies</p>
   <p>Better understanding of <strong>relational database</strong> concepts such as many to many relationships or join tables(previous basic experience with <strong>NoSQL</strong>)</p>
 <p>Deploying a web app online</p>
 
