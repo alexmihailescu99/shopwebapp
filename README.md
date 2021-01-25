@@ -21,6 +21,7 @@
 # To Do
 <p>Shopping Cart</p>
 <p>Generate a unique order ID after checkout & send the order confirmation to the user's email</p>
+<p>Tidy up the UI & make it more mobile-friendly</p>
 
 # Product page
 ![image](https://user-images.githubusercontent.com/14853367/105648119-5fd64680-5eb2-11eb-9aa8-4a42dd956fa6.png)
