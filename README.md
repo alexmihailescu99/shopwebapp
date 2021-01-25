@@ -12,7 +12,7 @@
 <p>All content served over <strong>HTTPS</strong></p>
 
 # Things I learned
-<p>Developing a <strong>CRUD</strong> application using Java & Spring(previous experience with Node.js)</p>
+<p>Developing a <strong>CRUD</strong> application using Java & Spring(previous basic experience with Node.js)</p>
 <p>Better understanding of HTTP & HTTPS requests/responses, headers, CORS, cookies</p>
 <p>Better understanding of relational database concepts such as many to many relationships or join tables(previous basic experience with NoSQL)</p>
 <p>Deploying a web app online</p>
