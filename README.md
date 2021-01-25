@@ -1,5 +1,5 @@
 # Shop Web App - https://am-shopwebapp.herokuapp.com/
-<p>This project was created using Java (Spring Boot, MVC & Security) and MySQL & Hibernate ORM on the back-end. </p>
+<p>This project was created using <strong>Java<strong>(Spring Boot, MVC & Security) and <strong>MySQL</strong> & <strong>Hibernate</strong> ORM on the back-end. </p>
 <p>The front-end was written in <strong>JavaScript</strong>, using the <strong>React.js</strong> framework.</p>
 <p>The web app was deployed to <strong>Heroku</strong> as two separate projects that communicate with each other securely via HTTPS</p>
 
@@ -10,6 +10,11 @@
 <p><strong>Role-based</strong> authentication(<strong>User</strong> & <strong>Admin</strong>, but can easily be extended to any number)</p>
 <p>Admin panel for adding/editing products(the entire web app can be controlled through the UI, no need to dive into the code)</p>
 <p>All content served over <strong>HTTPS</strong></p>
+
+# Things I learned
+<p>Developing a <strong>CRUD</strong> application using Java & Spring(previous experience with Node.js)</p>
+<p>Better understanding of HTTP & HTTPS requests/responses, headers, CORS, cookies</p>
+<p>Deploying a web app online</p>
 
 <strong>User Panel</strong>    |  <strong>Admin Panel</strong>
 :-------------------------:|:-------------------------:
